@@ -1,0 +1,51 @@
+---
+title: "Maturation des ovocytes"
+author: "Engels Guyliann & Philippe grosjean"
+output: github_document
+---
+
+<!--- do not edit readme.md ---->
+
+
+```{r setup}
+SciViews::R
+```
+
+
+## Objectif
+
+```{r}
+ovo <- read("data/ovocyte.rds") %>.%
+  mutate(., mat = as.factor(mat))
+```
+
+Le jeu de données `ovocyte.rds` porte sur la maturation d'ovocytes. Une concentration connue d'hypoxantine est ajouté afin de faire maturer les ovocytes.
+
+Vous pouvez avoir une représentation des données avec la fonction suivante :
+
+```{r, echo = TRUE}
+skimr::skim(ovo)
+```
+
+La variable `mat` est a deux niveaux :
+
+- `r levels(ovo$mat)[[1]]` : l'ovocyte n'est pas en maturation 
+- `r levels(ovo$mat)[[2]]` : l'ovocye a maturé
+
+On dénombre pour chaque concentration d'hypoxantine  le nombre suivant d'ovocyte :
+
+```{r}
+ovo %>.%
+  group_by(., as.factor(conc)) %>.%
+  summarise(., number = length(mat)) %>.%
+  spread(., key = `as.factor(conc)`, value = number)
+```
+ 
+> Résumez le tableau de données afin d'obtenir la proportion d'ovocytes ayant maturé.
+
+> Réalisez un modèle linéaire génaralisé afin d'étudier la proportion d'ovocytes ayant maturé.
+
+> Consignez vos résultats dans un document structuré au format R Markdorwn. Utilisez le template mis à votre disposition dans le dossier analysis.Ce document doit contenir une introduction sur l'hypoxantine et l'effet de cette substance sur les ovocytes. Ce document doit contenir une section analyse avec la description des données et la réalisation du modèle linéaire généralisé. Chaque tableau et graphique doit avoir une légende claire et précise comme montré dans l'exemple. Tout comme dans les revues scientifiques, les tableaux et graphiques doivent être cité dans le texte. 
+
+
+
