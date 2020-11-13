@@ -19,6 +19,7 @@ Cette séance d'exercices est en cours de développement. N'hésitez pas à vér
 ```{r}
 ovo <- read("data/ovocyte.rds") %>.%
   mutate(., mat = as.factor(mat))
+ovo
 ```
 
 Le jeu de données `ovocyte.rds` que vous allez utiliser porte sur la maturation d'ovocytes. Afin de faire maturer les ovocytes, différentes concentrations connue d'hypoxantine sont testées.

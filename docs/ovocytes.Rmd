@@ -13,37 +13,52 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 SciViews::R
 ```
 
-# Résumé {-}
-
 # Introduction
 
-blablabla [@Anderson1935]
+Chez les métazoaires, le début de la phase de maturation nucléaire lors de la méiose est marqué par un arrêt (appellé diapause) à la prophase I du stade diplotène, où les ovogonies sont alors appellées ovocytes primaires. Des substances produites par la corona radiata provoquant l'arrêt et le contrôle de cette méiose comprennent l'ovocyte meiotic inhibitor, l'AMP cyclique et certaines purines (dont fait partie l'hypoxanthine).
+Dans ce contexte, l'hypoxanthine, comme d'autres inhibiteurs de la phosphodiestérase, d’agents activateurs de l’adénylate cyclase ou encore d’analogues de l’AMPc lui même semblent pouvoir agir de concert avec l’AMPc.
+
+Cette expérience vise à montrer l'éventuel effet de l'hypoxanthine sur la maturation des ovocytes 
 
 # Analyse
 
 ```{r import_data}
-iris <- read("iris", package = "datasets", lang = "fr")
+ovo <- read("../data/ovocyte.rds") %>.%
+  mutate(., mat = as.factor(mat)) %>.%
+  labelise(., label=list(mat = "maturation"))
 ```
 
 On observe sur la figure \@ref(fig:is)
 
-```{r is, fig.cap= "Variation de la longueur des pétales [cm] en fonction de la longueur des sépales [cm] en fonction de trois espèces d'Iris"}
-chart(iris, petal_length ~ sepal_length %col=% species) +
-  geom_point()
+```{r}
+chart(ovo, ~ conc %fill=% mat) +
+  geom_bar()
 ```
 
 La tableau \@ref(tab:kable) met en évidence ...
 
 ```{r kable}
-iris %>.%
-  group_by(., species) %>.%
-  summarise(., pl_mean = round(mean(petal_length), 3), pl_sd = round(sd(petal_length), 3)) %>.%
+ovo %>.%
+  group_by(., mat) %>.%
+  summarise(., pl_mean = round(mean(conc), 3), pl_sd = round(sd(conc), 3)) %>.%
   knitr::kable(., 
-    caption = "Moyennes et écart-types [cm] de trois espèces d' Iris",
-    col.names = c("Espèces", "Moyenne [cm]", "Ecart-type [cm]"), align = "c")
+    caption = "Moyennes et écart-types des",
+    col.names = c("Maturation", "Concentration moyenne", "Ecart-type"), align="c")
+```
+
+```{r}
+summary(lm. <- lm(data = ovo, conc ~ mat))
+```
+```{r}
+ovo_glm <- glm(data = ovo, mat ~ conc,
+  family = binomial(link = logit))
+summary(ovo_glm)
 ```
 
 
 # Conclusions
 
 # Références
+
+http://www.ipubli.inserm.fr/bitstream/handle/10608/1305/MS_1999_2_148.pdf?sequence=7
+https://fr.wikipedia.org/wiki/Ovogen%C3%A8se
