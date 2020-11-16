@@ -22,39 +22,37 @@ Cette expérience vise à montrer l'éventuel effet de l'hypoxanthine sur la mat
 
 # Analyse
 
+Voici les six premières lignes du jeu de données avec lequel nous avons travaillé :
+
 ```{r import_data}
-ovo <- read("../data/ovocyte.rds") %>.%
-  mutate(., mat = as.factor(mat)) %>.%
-  labelise(., label=list(mat = "maturation"))
+ovo <- read("../data/ovocyte.rds")
+ovo <- mutate(ovo, mat = as.factor(mat), conc = as.factor(conc)) %>.%
+       labelise(., label=list(
+         mat = "maturation",
+         conc = "concentration"))
+head(ovo)
 ```
 
-On observe sur la figure \@ref(fig:is)
+Le tableau de données suivant \@ref(tab:tableau1) résume les effectifs mesurés afin d'obtenir la proportion d'ovocytes ayant maturé
 
-```{r}
+```{r tableau1}
+table(ovo$mat, ovo$conc)
+```
+
+On observe sur la figure ci dessous \@ref(fig:bar1) une représentation graphique de la proportion d'ovocytes ayant maturé en fonction de la concentration d'hypoxantine.
+
+```{r bar1}
 chart(ovo, ~ conc %fill=% mat) +
   geom_bar()
 ```
 
-La tableau \@ref(tab:kable) met en évidence ...
+Afin de voir si la concentration d'hypoxantine 
 
-```{r kable}
-ovo %>.%
-  group_by(., mat) %>.%
-  summarise(., pl_mean = round(mean(conc), 3), pl_sd = round(sd(conc), 3)) %>.%
-  knitr::kable(., 
-    caption = "Moyennes et écart-types des",
-    col.names = c("Maturation", "Concentration moyenne", "Ecart-type"), align="c")
-```
-
-```{r}
-summary(lm. <- lm(data = ovo, conc ~ mat))
-```
 ```{r}
 ovo_glm <- glm(data = ovo, mat ~ conc,
   family = binomial(link = logit))
 summary(ovo_glm)
 ```
-
 
 # Conclusions
 
