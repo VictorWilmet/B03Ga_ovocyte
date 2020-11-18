@@ -46,15 +46,18 @@ chart(ovo, ~ conc %fill=% mat) +
   geom_bar()
 ```
 
-Afin de voir si la concentration d'hypoxantine 
+Afin de voir si la concentration d'hypoxantine exerce effectivement une influence significative sur la maturaiton des ovocytes, une modélisation de la situation a été effectuée en utilisant le modèle linéaire généralisé tel que présenté ci-dessous \@ref(tab:glm) :
 
-```{r}
+```{r glm}
 ovo_glm <- glm(data = ovo, mat ~ conc,
   family = binomial(link = logit))
 summary(ovo_glm)
 ```
 
+Nous pouvons observer sur ce modèle linéaire généralisé de la situation que la p value est inférieure au seuil alpha posé de 0.05 pour la concentration.
+
 # Conclusions
+Nous avons pu montrer que la concentration en Hypoxanthine exerce effectivement une influence significative sur la maturaiton des ovocytes
 
 # Références
 
