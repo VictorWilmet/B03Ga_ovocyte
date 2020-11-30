@@ -1,6 +1,6 @@
 ---
 title: "Rapport Scientifique"
-author: "Nom des auteurs"
+author: "Wilmet Victor"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 bibliography: references.bib
 lang: "fr"
@@ -17,6 +17,10 @@ SciViews::R
 
 Chez les métazoaires, le début de la phase de maturation nucléaire lors de la méiose est marqué par un arrêt (appellé diapause) à la prophase I du stade diplotène, où les ovogonies sont alors appellées ovocytes primaires. Des substances produites par la corona radiata provoquant l'arrêt et le contrôle de cette méiose comprennent l'ovocyte meiotic inhibitor, l'AMP cyclique et certaines purines (dont fait partie l'hypoxanthine).
 Dans ce contexte, l'hypoxanthine, comme d'autres inhibiteurs de la phosphodiestérase, d’agents activateurs de l’adénylate cyclase ou encore d’analogues de l’AMPc lui même semblent pouvoir agir de concert avec l’AMPc.
+
+[@OvocyteMaturation]
+
+[@OvocyteFormation]
 
 Cette expérience vise à montrer l'éventuel effet de l'hypoxanthine sur la maturation des ovocytes 
 
